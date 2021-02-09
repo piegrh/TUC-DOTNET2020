@@ -38,7 +38,7 @@ namespace Pierre
         public const string Inverted = BackgroundKolor.Foreground + ForegroundKolor.Background;
         #endregion
         /// <summary>
-        /// Checks if <paramref name="text"/> starts with a escape sequence.
+        /// Checks if <paramref name="text"/> starts with an escape sequence.
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>

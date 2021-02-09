@@ -48,7 +48,7 @@ namespace Pierre
         /// </summary>
         /// <example>
         /// <code>
-        /// // Two ways of achieving the same thing
+        /// // Two ways of achieving the same result
         /// Konsole.WriteLine("^^1^0BLACK TEXT RED BACKGROUND");
         /// Konsole.WriteLine(Kolor.BGRED, Kolor.BLACK, "BLACK TEXT RED BACKGROUND")
         /// </code>
