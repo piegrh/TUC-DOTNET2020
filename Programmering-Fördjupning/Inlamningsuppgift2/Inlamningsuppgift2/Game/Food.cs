@@ -1,6 +1,4 @@
 ﻿using Engine;
-using Engine.Core;
-using Engine.Core.Collision;
 using Inlamningsuppgift2.Game.Players;
 using System;
 namespace Inlamningsuppgift2.Game
