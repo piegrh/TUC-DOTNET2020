@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/utils.js"></script>
+    <script defer src="js/script.js"></script>
+</head>
+<header>
+    <img class="sw-main-img" src="img/sw.png">
+    <h1>Star Wars Characters</h1>
+    <nav>
+        <button id="sw-button-prev" type="button" disabled>Prev</button>
+        <button id="sw-button-next" type="button" disabled>Next</button>
+    </nav>
+</header>
+<body>
+    <article>
+        <table id="sw-person-table"></table>
+    </article>
+    <article id="sw-person-info" hidden>
+        <h2>Additional information</h2>
+        <section>
+            <h3 id="sw-person-info-planet-name">Home planet</h3>
+            <table id="sw-person-info-planet">
+            </table>
+        </section>
+        <section>
+            <h3>Films</h3>
+            <table id="sw-person-info-films">
+            </table>
+        </section>
+    </article>
+</body>
+</html>
