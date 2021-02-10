@@ -49,23 +49,12 @@ namespace Engine.UnitTests
             Vector2 expected = new Vector2(resultx, resulty);
             Assert.Equal(expected, a - b);
         }
-        [Theory]
-        [InlineData(4, 4, 1, 1, 4, 4)]
-        public void Vector2_Division(int ax, int ay, int bx, int by, int resultx, int resulty)
+        [Fact]
+        public void Vector2_Division_Scalar()
         {
-            Vector2 a = new Vector2(ax, ay);
-            Vector2 b = new Vector2(bx, by);
-            Vector2 expected = new Vector2(resultx, resulty);
-            Assert.Equal(expected, a / b);
-        }
-        [Theory]
-        [InlineData(1, 1, 7, 7, 7, 7)]
-        public void Vector2_Multiplication(int ax, int ay, int bx, int by, int resultx, int resulty)
-        {
-            Vector2 a = new Vector2(ax, ay);
-            Vector2 b = new Vector2(bx, by);
-            Vector2 expected = new Vector2(resultx, resulty);
-            Assert.Equal(expected, a * b);
+            Vector2 a = new Vector2(2, 2);
+            Vector2 expected = new Vector2(1, 1);
+            Assert.Equal(expected, a / 2);
         }
         [Theory]
         [InlineData(1, 2, 10, 10, 20)]
@@ -75,8 +64,8 @@ namespace Engine.UnitTests
             Vector2 expected = new Vector2(resultx, resulty);
             Assert.Equal(expected, a * s);
         }
-        // =================================================== Utils
-        [Theory]
+    // =================================================== Utils
+    [Theory]
         [InlineData(-1, 0, 10, 0)]
         [InlineData(0, 0, 10, 0)]
         [InlineData(10, 0, 10, 10)]
