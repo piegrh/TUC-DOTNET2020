@@ -64,8 +64,7 @@ namespace uppgift1
         /// Parses a string to a float.
         /// </summary>
         /// <param name="input"></param>
-        /// <exception cref="OverflowException">The number was too big.</exception>
-        /// <returns></returns>
+        /// <returns>NaN, if input string could not be parsed into a float, otherwise, a float number</returns>
         public static float ParseToFloat(string input)
         {
             if (IsVariable(input))
