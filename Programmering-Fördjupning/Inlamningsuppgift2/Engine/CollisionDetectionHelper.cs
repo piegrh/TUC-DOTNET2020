@@ -5,7 +5,7 @@ namespace Engine
     public static class CollisionDetectionHelper 
     {
         /// <summary>
-        /// Checks if <paramref name="GameObjects"/> contains any <see cref="GameObject"/>s that implements the <see cref="ICollider"/> interface.
+        /// Checks if <paramref name="GameObjects"/> contains any active <see cref="GameObject"/>s that implements the <see cref="ICollider"/> interface.
         /// </summary>
         /// <param name="GameObjects"></param>
         /// <param name="colliedWith"></param>
