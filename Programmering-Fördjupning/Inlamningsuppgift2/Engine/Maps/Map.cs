@@ -101,7 +101,7 @@ namespace Engine.Maps
             return false;
         }
         /// <summary>
-        /// Returns a <see langword="true"/> if a neighboring <see cref="Node"/> was found.
+        /// Returns <see langword="true"/> if a neighboring <see cref="Node"/> was found.
         /// </summary>
         /// <param name="positon"></param>
         /// <param name="dir"></param>
