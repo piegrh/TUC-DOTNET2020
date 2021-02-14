@@ -102,13 +102,13 @@ namespace Engine.Maps
             // Main loop
             while (true)
             {
-                if (MapCovargeIsDone(map, settings))
+                if (MapCovargeIsDone(map, settings.TargetFloorCoverage))
                 {
                     break;
                 }
-                walkers.KillWalkers(settings, rand);
-                walkers.SpawnWalkers(settings, rand);
-                walkers.Walk(map, settings, rand);
+                walkers.KillWalkers(settings.KillProb, rand);
+                walkers.SpawnWalkers(settings.MaxWalkerCount, settings.SpawnProb, rand);
+                walkers.Walk(map, settings.ChangeDirectionProb, rand);
                 if (cnt++ >= settings.MaxIterations)
                 {
                     break;
@@ -116,11 +116,11 @@ namespace Engine.Maps
             }
             return map;
         }
-        static bool MapCovargeIsDone(Map map, LevelGeneratorSettings settings)
+        static bool MapCovargeIsDone(Map map, float targetFloorCoverage)
         {
             float totalNodeCount = map.Size.x * map.Size.y;
             int cnt = CountFloorNodes(map);
-            return cnt / totalNodeCount >= settings.TargetFloorCoverage;
+            return cnt / totalNodeCount >= targetFloorCoverage;
         }
         static int CountFloorNodes(Map map)
         {
@@ -137,13 +137,13 @@ namespace Engine.Maps
             }
             return cnt;
         }
-        static void KillWalkers(this List<Walker> walkers, LevelGeneratorSettings settings, Random rnd)
+        static void KillWalkers(this List<Walker> walkers, double killProb, Random rnd)
         {
             if (walkers.Count > 1)
             {
                 for (int i = walkers.Count - 1; i > 0; i--)
                 {
-                    if (rnd.NextDouble() < settings.KillProb)
+                    if (rnd.NextDouble() < killProb)
                     {
                         walkers.RemoveAt(i);
                         break;
@@ -151,13 +151,13 @@ namespace Engine.Maps
                 }
             }
         }
-        static void SpawnWalkers(this List<Walker> walkers, LevelGeneratorSettings settings, Random rnd)
+        static void SpawnWalkers(this List<Walker> walkers, int maxWalkerCount, double spawnProb, Random rnd)
         {
             for (int i = walkers.Count - 1; i > 0; i--)
             {
-                if (walkers.Count < settings.MaxWalkerCount)
+                if (walkers.Count < maxWalkerCount)
                 {
-                    if (rnd.NextDouble() < settings.SpawnProb)
+                    if (rnd.NextDouble() < spawnProb)
                     {
                         walkers.Add(new Walker()
                         {
@@ -170,11 +170,11 @@ namespace Engine.Maps
                 break;
             }
         }
-        static void Walk(this List<Walker> walkers, Map lvl, LevelGeneratorSettings settings, Random rnd)
+        static void Walk(this List<Walker> walkers, Map lvl, double changeDirectionProb, Random rnd)
         {
             foreach (Walker walker in walkers)
             {
-                if (rnd.NextDouble() < settings.ChangeDirectionProb)
+                if (rnd.NextDouble() < changeDirectionProb)
                 {
                     walker.Direction = (Direction)rnd.Next(1, 5);
                 }
