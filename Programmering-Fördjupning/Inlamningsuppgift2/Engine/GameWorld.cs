@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 namespace Engine
 {
-    public abstract class GameWorld : IBehaviour
+    public abstract class GameWorld 
     {
         public Vector2 Size { get; set; }
         public string GameInfo = "";
@@ -82,11 +82,11 @@ namespace Engine
             return true;
         }
         /// <summary>
-        /// Looks for a free position, returns <see langword="true"/> if found.
+        /// Looks for a free position.
         /// </summary>
         /// <param name="p">Asign the free positon found to p</param>
         /// <param name="giveUp">Number of tries before giving up</param>
-        /// <returns></returns>
+        /// <returns><see langword="True"/> if a free position was found, otherwise, <see langword="False"/></returns>
         public bool GetRandomFreePosition(out Vector2 p, int giveUp = 25)
         {
             int cnt = 0;
@@ -121,7 +121,7 @@ namespace Engine
             App.onAppExit -= OnExit;
         }
         /// <summary>
-        /// Gets a array of <see cref="GameObject"/> of type <typeparamref name="T"/>
+        /// Gets an array of <see cref="GameObject"/> of type <typeparamref name="T"/>
         /// </summary>
         /// <typeparam name="T">Gameobject type</typeparam>
         /// <param name="world">Gameworld</param>
