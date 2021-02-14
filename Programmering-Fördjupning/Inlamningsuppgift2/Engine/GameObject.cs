@@ -1,6 +1,6 @@
 ﻿namespace Engine
 {
-    public abstract class GameObject : IBehaviour
+    public abstract class GameObject
     {
         public Vector2 Position;
         public bool Active { get; set; } = true;
