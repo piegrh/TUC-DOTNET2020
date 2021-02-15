@@ -41,7 +41,7 @@ namespace Engine
                 return; // Did not move.
             }
             Utils.Clamp(ref gameObject.Position, Vector2.Zero, Size); // prevent gameobjects from going out of bounds.
-            if (CollisionDetectionHelper.ContainsActiveCollider(worldSpace.Get(gameObject.Position), out GameObject otherGameObject))
+            if (ContainsActiveCollider(worldSpace.Get(gameObject.Position), out GameObject otherGameObject))
             {
                 Collision(gameObject, otherGameObject);
                 gameObject.Position = previousPosition;
@@ -142,6 +142,26 @@ namespace Engine
         {
             Gameobjects.Remove(g);
             g.OnDestroy();
+        }
+        /// <summary>
+        /// Checks if <paramref name="GameObjects"/> contains any active <see cref="GameObject"/>s that implements the <see cref="ICollider"/> interface.
+        /// </summary>
+        /// <param name="GameObjects"></param>
+        /// <param name="colliedWith"></param>
+        /// <returns><see langword=""="True"/> if a ICollider was found, otherwise <see langword=""="null"/></returns>
+        protected bool ContainsActiveCollider(List<GameObject> GameObjects, out GameObject colliedWith)
+        {
+            colliedWith = null;
+            for (int i = 0; i < GameObjects.Count; i++)
+            {
+                GameObject temp = GameObjects[i];
+                if (temp is ICollider && temp.Active)
+                {
+                    colliedWith = temp;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
