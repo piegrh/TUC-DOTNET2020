@@ -120,10 +120,9 @@ namespace Inlamningsuppgift2.Game
             Food[] food = GetGameObjects<Food>();
             foreach (Food f in food)
             {
-                if (!f.Active)
+                if (!f.Active && GetRandomFreePosition(out f.Position, 5))
                 {
-                   GetRandomFreePosition(out f.Position);
-                   f.Active = true;
+                    f.Active = true;
                 }
             }
         }
