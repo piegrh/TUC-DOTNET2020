@@ -44,7 +44,6 @@ namespace Engine
                     Console.Write(' ');
                 }
             }
-
         }
         /// <summary>
         /// Render <see cref="IRenderable"/> active <see cref="GameObject"/>s that are not yet rendered.
