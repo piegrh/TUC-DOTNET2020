@@ -248,32 +248,6 @@ namespace Engine.UnitTests
             Assert.Equal(55, map.GetIndexOf(c));
             Assert.Equal(85, map.GetIndexOf(d));
         }
-        //========================================================== Collision
-        private class TestGameObject : GameObject, ICollider
-        {
-            public void OnCollision(GameObject go) { /* EMPTY */}
-        }
-        [Fact]
-        public void CollisionDetectionHelper_ContainsActiveCollider_IsTrue()
-        {
-            Grid<GameObject> grid = new Grid<GameObject>(new Vector2(10,10));
-            TestGameObject a = new TestGameObject() { Position = new Vector2(5, 5) };
-            grid.Get(a.Position).Add(a);
-            bool result = CollisionDetectionHelper.ContainsActiveCollider(grid.Get(new Vector2(5, 5)), out GameObject collision);            
-            Assert.Equal(a, collision);
-            Assert.True(result);
-        }
-        [Fact]
-        public void CollisionDetectionHelper_ContainsActiveCollider_IsFalse()
-        {
-            Grid<GameObject> grid = new Grid<GameObject>(new Vector2(10, 10));
-            TestGameObject a = new TestGameObject() { Position = new Vector2(5, 5) };
-            a.Active = false; // Inactive GameObjects should not collid with other colliders
-            grid.Get(a.Position).Add(a);
-            bool result = CollisionDetectionHelper.ContainsActiveCollider(grid.Get(new Vector2(5, 5)), out GameObject collision);
-            Assert.Null(collision);
-            Assert.False(result);
-        }
         //========================================================== LevelGenerator
         [Fact]
         public void MapGenerator_FromIntArray()
