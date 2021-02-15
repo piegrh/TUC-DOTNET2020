@@ -145,7 +145,6 @@ namespace Inlamningsuppgift2.Game
                 Destroy(p);
             }
         }
-
         void OnFoodPickupEvent(Player player, Food f)
         {
             lastMealTracker[player] = App.time.SecondsSinceStart;
