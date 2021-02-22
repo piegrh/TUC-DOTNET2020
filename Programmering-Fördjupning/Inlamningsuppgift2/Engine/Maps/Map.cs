@@ -36,6 +36,10 @@ namespace Engine.Maps
             {
                 return new Node(new Vector2(position), NodeType);
             }
+            public override string ToString()
+            {
+                return $"{position} type='{NodeType}'";
+            }
         }
         public Node[,] Nodes { get; protected set; }
         public Vector2 Size { get; protected set; }
@@ -162,7 +166,15 @@ namespace Engine.Maps
                     {
                         continue;
                     }
-                    sb.Append(Nodes[x, y].IsFloor ? ' ' : '#');
+                    char c = '?';
+                    switch (Nodes[x, y].NodeType)
+                    {
+                        case Node.FLOOR: c = '@'; break;
+                        case Node.WALL: c = '#'; break;
+                        case 2: c = ' '; break;
+                    }
+                    sb.Append(c);
+                    //sb.Append(Nodes[x, y].IsFloor ? ' ' : '#');
                 }
                 sb.AppendLine();
             }
