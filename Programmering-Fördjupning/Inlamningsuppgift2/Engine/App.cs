@@ -22,7 +22,19 @@ namespace Engine
         public static readonly Time time = new Time();
         public static Random rnd = new Random();
         static string exitMessage = "";
+        const int MaxFrameRate = 9999;
         static int frameRate = 10;
+        public static int FrameRate
+        {
+            get
+            {
+                return frameRate;
+            }
+            set
+            {
+                frameRate = Utils.Clamp(value, 5, MaxFrameRate);
+            }
+        }
         static bool renderGame = true;
         static GameWorld world;
         static Renderer renderer;
@@ -53,7 +65,7 @@ namespace Engine
         }
         static void ThreadSleep(Stopwatch sw)
         {
-            float frameTime = MathF.Ceiling((1000.0f / frameRate) - sw.ElapsedMilliseconds);
+            float frameTime = MathF.Ceiling((1000.0f / FrameRate) - sw.ElapsedMilliseconds);
             if (frameTime > 0)
                 Thread.Sleep((int)frameTime);
         }
@@ -91,10 +103,10 @@ namespace Engine
                     Quit("Game aborted");
                     break;
                 case ConsoleKey.PageUp:
-                    frameRate = Utils.Clamp(++frameRate, 5, 100);
+                    FrameRate++;
                     break;
                 case ConsoleKey.PageDown:
-                    frameRate = Utils.Clamp(--frameRate, 5, 100);
+                    FrameRate--;
                     break;
             }
         }
