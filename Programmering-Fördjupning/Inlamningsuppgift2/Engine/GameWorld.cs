@@ -1,4 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace Engine
 {
     public abstract class GameWorld 
@@ -18,18 +22,24 @@ namespace Engine
         public virtual void Update()
         {
             UpdateWorldSpace();
-            foreach (GameObject gameObject in Gameobjects)
+            List<DynamicObject> dynamicGameObjects = new List<DynamicObject>();
+            Parallel.ForEach(Gameobjects, (gameObject) => {
+                if (gameObject.Active)
+                {
+                    gameObject.Update();
+                    if(gameObject is DynamicObject)
+                    {
+                        dynamicGameObjects.Add(gameObject as DynamicObject);
+                    }
+                }
+            });
+            foreach (DynamicObject gameObject in dynamicGameObjects)
             {
-                if (!gameObject.Active)
+                if (gameObject is null) 
                 {
                     continue;
                 }
-                gameObject.Update();
-                if (!(gameObject is DynamicObject))
-                {
-                    continue;
-                }
-                MoveDynamicGameObject(gameObject as DynamicObject);
+                MoveDynamicGameObject(gameObject);
             }
         }
         void MoveDynamicGameObject(DynamicObject gameObject)
@@ -60,13 +70,13 @@ namespace Engine
             {
                 worldSpace.Clear();
             }
-            foreach (GameObject go in Gameobjects)
+            Parallel.ForEach(Gameobjects, (go) =>
             {
                 if (go is ICollider)
                 {
                     worldSpace.Get(go.Position).Add(go);
                 }
-            }
+            });
         }
         bool PositionIsFree(Vector2 p)
         {
@@ -126,17 +136,10 @@ namespace Engine
         /// <typeparam name="T">Gameobject type</typeparam>
         /// <param name="world">Gameworld</param>
         /// <returns></returns>
-        public T[] GetGameObjects<T>() where T : GameObject
+        public GameObject[] GetGameObjects<T>() where T : GameObject
         {
-            List<T> list = new List<T>();
-            for (int i = 0; i < Gameobjects.Count; i++)
-            {
-                if (Gameobjects[i] is T)
-                {
-                    list.Add(item: Gameobjects[i] as T);
-                }
-            }
-            return list.ToArray();
+            var objects = from n in Gameobjects.AsParallel() where n is T select n;
+            return objects.ToArray();
         }
         protected virtual void Destroy(GameObject g)
         {
@@ -148,7 +151,7 @@ namespace Engine
         /// </summary>
         /// <param name="GameObjects"></param>
         /// <param name="colliedWith"></param>
-        /// <returns><see langword=""="True"/> if a ICollider was found, otherwise <see langword=""="null"/></returns>
+        /// <returns><see langword=""="True"/> if a ICollider was found, otherwise <see langword="null"/></returns>
         protected bool ContainsActiveCollider(List<GameObject> GameObjects, out GameObject colliedWith)
         {
             colliedWith = null;
