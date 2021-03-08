@@ -2,8 +2,6 @@
 using Engine.Maps;
 using Inlamningsuppgift2.Game.Players;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Inlamningsuppgift2.Game
 {
@@ -90,17 +88,16 @@ namespace Inlamningsuppgift2.Game
         void SendGameStateUpdate()
         {
             Map m = new Map(map);
-            Parallel.ForEach(Gameobjects, (go) => { 
-                if(go is Player)
-                {
-                    Player p = go as Player;
-                    m.Nodes[p.Position.x, p.Position.y] = new Map.Node(p.Position, (p is AiPlayer) ? NodeAI : NodeHuman);
-                } else if (go is Food)
-                {
-                    Food f = go as Food;
-                    m.Nodes[f.Position.x, f.Position.y] = new Map.Node(f.Position, NodeFood);
-                }
-            });
+            // Mark players locations
+            foreach (Player p in this.GetGameObjects<Player>())
+            {
+                m.Nodes[p.Position.x, p.Position.y] = new Map.Node(p.Position, (p is AiPlayer) ? NodeAI : NodeHuman);
+            }
+            // Mark food location
+            foreach (Food f in this.GetGameObjects<Food>())
+            {
+                m.Nodes[f.Position.x, f.Position.y] = new Map.Node(f.Position, NodeFood);
+            }
             GameEvents.GameStateUpdate(m);
         }
         void UpdateGameInfoText()
@@ -120,10 +117,10 @@ namespace Inlamningsuppgift2.Game
         }
         void RespawnInactiveFood()
         {
-            var foodObjects = from n in Gameobjects.AsParallel() where n is Food && !n.Active select n;
-            foreach (GameObject f in foodObjects)
+            Food[] food = GetGameObjects<Food>();
+            foreach (Food f in food)
             {
-                if (GetRandomFreePosition(out f.Position, 5))
+                if (!f.Active && GetRandomFreePosition(out f.Position, 5))
                 {
                     f.Active = true;
                 }
