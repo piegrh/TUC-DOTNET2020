@@ -28,6 +28,7 @@ namespace Inlamningsuppgift2.Game.Players
             if (path is null)
             {
                 // stand still if there is no food
+                Dir = Direction.None;
                 return;
             }
             Vector2 nextPos = path.Next(Position);
