@@ -27,12 +27,11 @@ namespace Inlamningsuppgift2.Game.Players
             path = PathFinder.GetPath(Map, Position, NotSnakeGame.NodeFood, out targetPosition);
             if (path is null)
             {
-                // stand still if there is no food
                 MoveDirection = Direction.None;
                 return;
             }
             Vector2 nextPosition = path.NextPosition(Position);
-            if (IsValidPath(nextPosition))
+            if (IsValidPosition(nextPosition))
             {
                 MoveDirection = Utils.Vector2ToDirection(nextPosition - Position);
                 if (DestinationReached(nextPosition))
@@ -50,7 +49,7 @@ namespace Inlamningsuppgift2.Game.Players
             path = null;
             targetPosition = PathFinder.Invalid;
         }
-        protected virtual bool IsValidPath(Vector2 position)
+        protected virtual bool IsValidPosition(Vector2 position)
         {
             if (position == PathFinder.Invalid || Map.GetNode(targetPosition).NodeType != NotSnakeGame.NodeFood)
             {
