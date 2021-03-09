@@ -31,11 +31,11 @@ namespace Inlamningsuppgift2.Game.Players
                 MoveDirection = Direction.None;
                 return;
             }
-            Vector2 nextPos = path.Next(Position);
-            if (IsValidPath(nextPos))
+            Vector2 nextPosition = path.NextPosition(Position);
+            if (IsValidPath(nextPosition))
             {
-                MoveDirection = Utils.Vector2ToDirection(nextPos - Position);
-                if (DestinationReached(nextPos))
+                MoveDirection = Utils.Vector2ToDirection(nextPosition - Position);
+                if (DestinationReached(nextPosition))
                 {
                     ResetTarget();
                 }
