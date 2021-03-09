@@ -8,7 +8,7 @@ namespace Inlamningsuppgift2.Game.Players
     public class AiPlayer : Player
     {
         protected Vector2 targetPosition;
-        protected NavPath path = null;
+        protected NavigationPath path = null;
         protected Map Map { get; private set; }
         protected bool DestinationReached(Vector2 position) => position == targetPosition;
         public AiPlayer(ConsoleColor color = ConsoleColor.Magenta)
