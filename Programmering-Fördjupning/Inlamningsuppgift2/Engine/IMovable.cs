@@ -2,6 +2,6 @@
 {
     public interface IMovable
     {
-        Direction Dir { get; set; }
+        Direction MoveDirection { get; set; }
     }
 }

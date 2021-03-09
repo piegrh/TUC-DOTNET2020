@@ -35,7 +35,7 @@ namespace Engine
         void MoveDynamicGameObject(DynamicObject gameObject)
         {
             Vector2 previousPosition = gameObject.Position;
-            gameObject.Position += Utils.DirectionToVector2((gameObject as IMovable).Dir);
+            gameObject.Position += Utils.DirectionToVector2((gameObject as IMovable).MoveDirection);
             if (gameObject.Position == previousPosition)
             {
                 return; // Did not move.

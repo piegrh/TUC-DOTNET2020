@@ -5,6 +5,6 @@
         /// <summary>
         /// Move Direction
         /// </summary>
-        public Direction Dir { get; set; }
+        public Direction MoveDirection { get; set; }
     }
 }

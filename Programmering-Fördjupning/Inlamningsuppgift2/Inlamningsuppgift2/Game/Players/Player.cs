@@ -11,13 +11,13 @@ namespace Inlamningsuppgift2.Game.Players
         public bool IsRendered { get; set; } = false;
         public virtual void OnCollision(GameObject gameObject) { /* empty */ }
         // VS Studio wanted me to format this codeblock like this :(
-        public override void Update() => Dir = Input.GetKey() switch
+        public override void Update() => MoveDirection = Input.GetKey() switch
         {
             ConsoleKey.W => Direction.Up,
             ConsoleKey.S => Direction.Down,
             ConsoleKey.A => Direction.Left,
             ConsoleKey.D => Direction.Right,
-            _ => Dir,
+            _ => MoveDirection,
         };
     }
 }

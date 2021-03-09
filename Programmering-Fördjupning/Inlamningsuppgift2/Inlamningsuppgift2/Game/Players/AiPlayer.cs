@@ -28,13 +28,13 @@ namespace Inlamningsuppgift2.Game.Players
             if (path is null)
             {
                 // stand still if there is no food
-                Dir = Direction.None;
+                MoveDirection = Direction.None;
                 return;
             }
             Vector2 nextPos = path.Next(Position);
             if (IsValidPath(nextPos))
             {
-                Dir = Utils.Vector2ToDirection(nextPos - Position);
+                MoveDirection = Utils.Vector2ToDirection(nextPos - Position);
                 if (DestinationReached(nextPos))
                 {
                     ResetTarget();
@@ -42,7 +42,7 @@ namespace Inlamningsuppgift2.Game.Players
             } else
             {
                 ResetTarget();
-                Dir = Utils.RandomDirection;
+                MoveDirection = Utils.RandomDirection;
             }
         }
         protected virtual void ResetTarget()

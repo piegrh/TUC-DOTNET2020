@@ -15,7 +15,7 @@ namespace Inlamningsuppgift2.Game
         public Food()
         {
             resetTime = RandomResetTime;
-            Dir = Direction.None;
+            MoveDirection = Direction.None;
             timer = 0;
         }
         public void OnCollision(GameObject gameObject)
