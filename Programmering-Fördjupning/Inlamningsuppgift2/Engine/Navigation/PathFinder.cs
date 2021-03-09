@@ -25,14 +25,14 @@ namespace Engine.Navigation
         /// <param name="targetNodeType"></param>
         /// <param name="targetPos"></param>
         /// <returns></returns>
-        public static NavPath GetPath(Map map, Vector2 src, int targetNodeType, out Vector2 targetPos)
+        public static NavigationPath GetPath(Map map, Vector2 src, int targetNodeType, out Vector2 targetPos)
         {
             var arr = BFS(map, src, targetNodeType, out targetPos);
             if (targetPos == Invalid)
             {
                 return null;
             }
-            return new NavPath(map.Size, CreatePath(map.GetIndexOf(targetPos), arr));
+            return new NavigationPath(map.Size, CreatePath(map.GetIndexOf(targetPos), arr));
         }
         static int[] BFS(Map map, Vector2 src, int TargetNodeType, out Vector2 dest)
         {
